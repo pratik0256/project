@@ -1,0 +1,190 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+    .fixed-top {
+        padding-top: 15px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+    }
+    body {
+    padding-top: 70px; /* Adjust this value based on the height of your navigation bar */
+  }
+
+    h1 {
+
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+        text-transform: uppercase;
+    }
+
+    table {
+        background-color: rgb(232, 240, 240);
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 90%;
+        max-width: 900%;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+        background-color: #5198e9;
+        color: white;
+        text-align: left;
+        padding: 12px;
+        font-size: 1.2rem;
+    }
+
+    td {
+        border-bottom: 1px solid #ddd;
+        padding: 15px;
+        font-size: 1.3rem;
+
+    }
+
+    tr:hover {
+
+        background-color: #f5f5f5;
+    }
+
+
+    .shape {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        transform: scale(0.8);
+    }
+
+    .cir {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 5;
+    }
+
+    .btn-contain {
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 4px;
+        background: #333;
+        text-align: center;
+        z-index: 10;
+        transition: 0.2s;
+        cursor: pointer;
+        color: #fff;
+        box-shadow: 0px 1px 5px 2px #BFCEEF;
+    }
+
+    .btn:active,
+    .btn:hover,
+    .btn:focus {
+        outline: none !important;
+        color: white;
+    }
+
+    .btn-particles {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        border-radius: 50%;
+        color: #eee;
+        font-family: monospace;
+        z-index: 5;
+        /*  filter: url(#gooeyness); */
+    }
+
+    .btn:active {
+        transform: scale(0.9) translate(-55%, -55%);
+    }
+
+    .back-button {
+        background-color: rgb(58, 167, 234);
+        color: white;
+        font-size: 1.2rem;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        margin-right: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .download-button {
+        background-color: rgb(58, 167, 234);
+        color: white;
+        font-size: 1.2rem;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .back-button:hover,
+    .download-button:hover {
+        background-color: #1869a7;
+    }
+</style>
+
+{% block content %}
+
+
+<nav class="shadow-lg p-8 bg-blue col-md-12 fixed-top" style="background-color: aliceblue; height: 60px;">
+    <div class="container-fluid">
+        <span class="self-center text-3xl font-bold col-md-6 text-left"
+            style="font-weight: 600; font-size: large;">Unexpected Import</span>
+        <div class="text-right" style="font-size: large;">
+            <button id="back-button" class='back-button' style=' background-color: rgb(58, 167, 234);' type='submit'>
+                Home </button>
+            <!-- Add more links here if needed -->
+        </div>
+    </div>
+</nav>
+<div class="row" style="width: 100%;">
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Data</h1>
+        </div>
+
+        <form style="padding-left: 6px; padding-right: 6px;">
+
+            <button class='download-button' style='float: right ; background-color: rgb(58, 167, 234);' type='submit'>
+                Download</button>
+        </form>
+        <!-- <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form> -->
+
+        <div id="myTable">
+            <table class="table" data-spy="scroll" data-target="#myTable">
+                {{ data|safe }}
+            </table>
+        </div>
+    </div>
+</div>
+<!-- <table class="container">
+
+    {{ data|safe }}
+</table> -->
+<script>document.getElementById("back-button").addEventListener("click", function () {
+        window.history.back();
+
+    });
+
+
+
+</script>
+{% endblock %}

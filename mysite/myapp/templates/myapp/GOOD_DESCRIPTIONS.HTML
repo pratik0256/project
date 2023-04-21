@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GOODS_DESCRIPTION Groups</title>
+</head>
+<body>
+	<h1>GOODS_DESCRIPTION Groups</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Soundex Code</th>
+				<th>Count</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for group in groups %}
+			<tr>
+				<td>{{ group.soundex }}</td>
+				<td>{{ group.count }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>

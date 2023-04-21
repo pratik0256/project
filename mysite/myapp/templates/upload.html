@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}Document Upload</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.15/tailwind.min.css"
+    integrity="sha512-GcqJwZmzq1mw06j1d38GvHl01eRnsiX9Fe5B+/C5v5wZbUKq3iL8fDpOYKOh+fvyFgJZXr9ZMfThdQOQRw59tQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-gray-100">
+  <nav class="shadow-lg p-5 bg-white">
+    <div class="container flex flex-wrap justify-between items-center mx-auto">
+      <a href="{% url 'index2'%}" class="flex-wrap ml-auto">
+        <span class="self-center text-xl bg-white font-bold">☰ Home</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="flex flex-col items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8">
+    <h1 class="text-4xl text-blue-900 font-bold text-center mb-8">Document Upload</h1>
+    <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <h3 class="text-lg text-blue-700 mb-4">YOUR DATA IS SAFE WITH US</h3>
+      <p class="text-base text-gray-600 mb-8">
+        We take every care to ensure that your personal data is kept secure. We have put in place appropriate security measures
+        to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or
+        disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third
+        parties who have a business need to know. They will only process your personal data on our instructions and they are
+        subject to a duty of confidentiality.
+
+        <br><br>
+        Please remember that you are responsible for keeping your passwords secure. If we have given you (or you have chosen) a
+        password which enables you to access certain parts of Our Website or app (as applicable), you are responsible for
+        keeping this password confidential. Please do not to share your passwords with anyone.
+      </p>
+      <a href="{% url 'upload_csv'%}"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Upload CSV
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

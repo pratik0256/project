@@ -1,0 +1,45 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+   
+    
+</head>
+<body>
+     
+  <nav class="shadow-lg p-5 bg-white">
+    <div class="container flex flex-wrap justify-between items-center mx-auto">
+      <a href="{% url 'index2'%}"i class="flex-wrap ml-auto">
+        
+        <span class="self-center text-xl bg-white font-bold "> ☰ Home</span>
+      </a>
+    </div>
+</nav>
+<!-- <div class="video-container">
+    <video autoplay muted loop id="bg-video">
+        <source src="{% static 'videos/video.mp4' %}" type="video/mp4">
+    </video>
+  </div> -->
+
+    <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
+
+
+
+
+  
+</body>
+</html>

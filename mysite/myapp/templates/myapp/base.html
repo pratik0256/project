@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 
+
+  <title>{% block title %}{% endblock %}</title>
+
+
+</head>
+
+<body>
+
+  <!-- <nav class="shadow-lg p-5 bg-white">
+    <div class="container flex flex-wrap justify-between items-center mx-auto">
+      <a href="#" class="flex-wrap ml-auto">
+
+        <span class="self-center text-xl bg-white font-bold "> ☰ Home</span>
+      </a>
+    </div>
+  </nav> -->
+  <nav class="shadow-lg p-8 bg-white col-md-12">
+    <div class="container-fluid">
+      
+        <span class="self-center text-3xl font-bold col-md-6 text-left" >Unexpected Import</span>
+     
+      <div class="text-right" style="font-size: large;">
+        <a href="{% url 'index2'%}" class="px-3 text-xl font-medium text-gray-700 hover:text-gray-900">Home</a>
+        <!-- Add more links here if needed -->
+      </div>
+    </div>
+  </nav>
+
+
+
+  <div class="video-container">
+    <video autoplay muted loop id="bg-video">
+      <source src="{% static 'videos/video1.mp4' %}" type="video/mp4">
+    </video>
+  </div>
+
+  <main id="section">
+    {% block content %}
+    {% endblock %}
+  </main>
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>
