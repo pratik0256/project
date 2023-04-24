@@ -59,21 +59,16 @@ def upload_file(request):
             df['Test'] = df.apply(check_price, axis=1)
         
             def check_price2(row):
-                
-                
-    # Group rows by GOODS_DESCRIPTION
-                groups = df.groupby('GOODS_DESCRIPTION')
-    
-                results = []
             
-                # expected_words = row['GOODS_DESCRIPTION'].split()
+                expected_words = row['GOODS_DESCRIPTION'].split()
+                print(expected_words)  
                 commodity_desc = row['COMMODITY_DESC'].upper()
+                print(commodity_desc)
                 
-                
-                for word in commodity_desc:
+                for word in expected_words:
                     print(f"Is '{word}' in '{commodity_desc}'? {word in commodity_desc}")
-                commodity_contains_expected = any(word in commodity_desc for word in commodity_desc)
-
+                commodity_contains_expected = any(word in commodity_desc for word in expected_words)
+                print(commodity_contains_expected)
                 
                 if commodity_contains_expected == True:
                       
@@ -82,7 +77,7 @@ def upload_file(request):
                     
                 else:
                     print(f"Item is an expected import/export.")
-                    return "False"  
+                    return "False"
             #pass the dataframe to a templates
             # df['Test2'] = df.apply(lambda row: check_price2(row), axis=1)
             # df = df.drop(['Unnamed: 0','Unnamed: 9','Unnamed: 10'], axis=1)
