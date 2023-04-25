@@ -7,36 +7,18 @@
     <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
-    <title>{% block title %}{% endblock %}</title>
-   
-    
+    <title>{% block title %}{% endblock %}</title>  
 </head>
-<style>
-  .hero-image {
-        background-image: url('{% static "images/bg2.jpeg" %}');
-        background-repeat: repeat;
-        background-size: cover;
-        background-position: center;
-        width: 100%;
-        height: 25vh;
-    }
-</style>
-
 {% block content %}
+<!-- title of page -->
 <div class="hero-image bg-slate-400 bg-center">
   <div class="hero-text text-center text-white  ">
     <h1 class="text-4xl md:text-6xl  font-bold mb-4">Import and Export of Ships Cargo</h1>
     <p class="text-lg md:text-2xl mb-6">We specialize in the import and export of ships cargo, providing reliable and efficient transportation services around the world.</p>
-    <!-- <button class="bg-red text-gray-200 font-bold py-2 px-4 rounded">Learn More</button> -->
   </div>
 </div>
-
+<!-- NavBar -->
 <nav class="navbar bg-white py-4 md:py-8 px-4 md:px-16 flex items-center justify-between">
-    <style>
-      .navbar {
-        background-color: rgba(31, 27, 27, 0.329);
-      }
-    </style>
     <div class="flex-1">
       <a href="#" class="text-gray-800 text-lg md:text-2xl font-bold">ImportExportShips</a>
     </div>
@@ -51,7 +33,7 @@
       </button>
     </div>
   </nav>
-  
+<!-- Services -->
   <section id="services" class="py-8 md:py-16 px-4 md:px-16 bg-gray-200">
     <h2 class="text-3xl md:text-4xl font-bold mb-8 text-black text-center">Our Services</h2>
     <div class="flex justify-center">
@@ -72,9 +54,46 @@
       </div>
     </div>
   </section>
-  
-  <style>
-  .service-box {
+ 
+<!-- about-us -->
+<section id="about" class="about-us py-8 md:py-16 px-4 md:px-16 bg-gray-200">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-black text-center">About Us</h2>
+    <div class="flex flex-col md:flex-row items-center justify-center mb-8">
+      <div class="w-full md:w-1/2 order-2 md:order-1">
+        <img src="{% static 'images/about.png' %}" alt="About Us" class="h-auto w-full rounded-lg shadow-lg">
+      </div>
+      <div class="w-full md:w-1/2 order-1 md:order-2 animate-fadeInUp">
+        <p class="text-lg md:text-xl font-bold mb-4 text-center md:text-left">We are a leading provider of shipping and logistics services, with years of experience in the industry. Our team of experts is dedicated to delivering top-notch solutions that meet our clients' needs.</p>
+      </div>
+    </div>
+  </section>
+<!-- Contact Us -->
+    <section id="contact" class="contact-us py-4 md:py-8 px-4 md:px-16 bg-gray-200">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Contact Us</h2>
+        <p class="text-lg font-bold text-center">For more information on our services, please contact us at:</p>
+        <div class="my-8 flex flex-col md:flex-row items-center justify-center">
+          <div class="bg-gray-300 rounded-lg shadow-lg p-6 mr-0 md:mr-8 mb-4 md:mb-0">
+            <p class="text-xl font-bold mb-2">Email:</p>
+            <p class="text-lg font-bold text-gray-800">info@importexportships.com</p>
+          </div>
+          <div class="bg-gray-300  rounded-lg shadow-lg p-6 mr-2">
+            <p class="text-xl font-bold mb-2">Phone:</p>
+            <p class="text-lg font-bold text-gray-700">+1 (555) 123-4567</p>
+          </div>
+        </div>
+      </section>
+
+<style>
+.hero-image {
+    background-image: url('{% static "images/bg2.jpeg" %}');
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 25vh;
+}
+
+    .service-box {
     background-color: #F7FAFC;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -94,62 +113,23 @@
     font-size: 1.1rem;
     margin-top: 0;
   }
-  </style>
-  
-  
-
-
- 
-
-<section id="about" class="about-us py-8 md:py-16 px-4 md:px-16 bg-gray-200">
-    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-black text-center">About Us</h2>
-    <div class="flex flex-col md:flex-row items-center justify-center mb-8">
-      <div class="w-full md:w-1/2 order-2 md:order-1">
-        <img src="{% static 'images/about.png' %}" alt="About Us" class="h-auto w-full rounded-lg shadow-lg">
-      </div>
-      <div class="w-full md:w-1/2 order-1 md:order-2 animate-fadeInUp">
-        <p class="text-lg md:text-xl font-bold mb-4 text-center md:text-left">We are a leading provider of shipping and logistics services, with years of experience in the industry. Our team of experts is dedicated to delivering top-notch solutions that meet our clients' needs.</p>
-      </div>
-    </div>
-  </section>
-  <head>
-    <style>
-      .animate-fadeInUp {
-        animation: fadeInUp 1s ease;
+.animate-fadeInUp {
+    animation: fadeInUp 1s ease;
+  }
+    @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-        @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(50px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-        </style>
-    </head>
-    <section id="contact" class="contact-us py-4 md:py-8 px-4 md:px-16 bg-gray-200">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Contact Us</h2>
-        <p class="text-lg font-bold text-center">For more information on our services, please contact us at:</p>
-        <div class="my-8 flex flex-col md:flex-row items-center justify-center">
-          <div class="bg-gray-300 rounded-lg shadow-lg p-6 mr-0 md:mr-8 mb-4 md:mb-0">
-            <p class="text-xl font-bold mb-2">Email:</p>
-            <p class="text-lg font-bold text-gray-800">info@importexportships.com</p>
-          </div>
-          <div class="bg-gray-300  rounded-lg shadow-lg p-6 mr-2">
-            <p class="text-xl font-bold mb-2">Phone:</p>
-            <p class="text-lg font-bold text-gray-700">+1 (555) 123-4567</p>
-          </div>
-        </div>
-      </section>
-
-
-
-  
-
-
-  
+.navbar {
+          background-color: rgba(31, 27, 27, 0.329);
+      }
+</style>   
 {% endblock %}
 
 

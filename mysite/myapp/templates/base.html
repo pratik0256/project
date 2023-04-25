@@ -1,5 +1,3 @@
-
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +8,9 @@
     <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
     <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <title>{% block title %}{% endblock %}</title>
-   
-    
+    <title>{% block title %}{% endblock %}</title>   
 </head>
-<body>
-     
+<body>   
   <nav class="shadow-lg p-5 bg-white">
     <div class="container flex flex-wrap justify-between items-center mx-auto">
       <a href="{% url 'index2'%}"i class="flex-wrap ml-auto">
@@ -24,12 +19,6 @@
       </a>
     </div>
 </nav>
-<!-- <div class="video-container">
-    <video autoplay muted loop id="bg-video">
-        <source src="{% static 'videos/video.mp4' %}" type="video/mp4">
-    </video>
-  </div> -->
-
     <main>
     {% block content %}
     {% endblock %}
@@ -37,9 +26,3 @@
 </body>
 </html>
 
-
-
-
-  
-</body>
-</html>

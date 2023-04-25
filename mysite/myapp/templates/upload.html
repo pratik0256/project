@@ -1,8 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +14,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="bg-gray-100">
-  <nav class="shadow-lg p-5 bg-white">
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <a href="{% url 'index2'%}" class="flex-wrap ml-auto">
-        <span class="self-center text-xl bg-white font-bold">☰ Home</span>
-      </a>
-    </div>
-  </nav>
-
+{% block content %}
   <div class="flex flex-col items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8">
     <h1 class="text-4xl text-blue-900 font-bold text-center mb-8">Document Upload</h1>
     <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
@@ -47,5 +38,5 @@
     </div>
   </div>
 </body>
-
 </html>
+{% endblock %}

@@ -4,6 +4,62 @@
 <br>
 <br>
 
+<!-- upload file container -->
+<div class="container mx-auto">
+  <div class="w-80 ml-40 flex" style="text-align: left; left: 40%; height: 25rem;">
+    <div class="container  mx-auto shadow-lg  p-5  mt-20  border-4 w-80 ml-80 "
+      style="background-color: rgba(255, 255, 255, 0.7);">
+      <h1 class="ml-10 my-4 mb-8 text-2xl text-black font-bold text-left">Upload a CSV file</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mx-10 mb-8">
+          <p>
+            <input type="file" name="csv_file" required="" id="id_csv_file" role="alert"
+              class="bg-gray rounded-lg text-black font-bold" style="width: 214px; height: 30px;">
+          </p>
+        </div>
+        <div class="mx-10 mt-8">
+          <button type="submit" id="upload-button"
+            class="custom-button bg-white px-5 py-2 rounded-lg text-black font-bold"
+            style="color: black;">Upload</button>
+        </div>
+        <div id="loading-animation" class="hidden">
+          <div class="loader"></div>        
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Validation for csv -->
+<script>
+  window.addEventListener('load', function () {
+    var csvFileInput = document.getElementById('id_csv_file');
+    csvFileInput.focus();
+  });
+
+  const fileInput = document.getElementById('id_csv_file');
+  fileInput.addEventListener('change', function () {
+    const file = fileInput.files[0];
+    if (!file || file.type !== 'text/csv') {
+      alert('Please upload a CSV file.');
+      fileInput.value = '';
+    }
+  });
+
+  const uploadButton = document.getElementById('upload-button');
+  const loadingAnimation = document.getElementById('loading-animation');
+
+  uploadButton.addEventListener('click', () => {
+    uploadButton.classList.add('hidden');
+    loadingAnimation.classList.remove('hidden');
+    setTimeout(() => {
+      uploadButton.classList.remove('hidden');
+      loadingAnimation.classList.add('hidden');
+      // additional action after the animation ends
+    }, 3000);
+  });
+
+
+</script>
 <style>
   .w-80.ml-40.flex {
     text-align: center;
@@ -58,66 +114,6 @@
   }
 </style>
 
-<div class="container mx-auto">
-  <div class="w-80 ml-40 flex" style="text-align: left; left: 40%; height: 25rem;">
-    <div class="container  mx-auto shadow-lg  p-5  mt-20  border-4 w-80 ml-80 "
-      style="background-color: rgba(255, 255, 255, 0.7);">
-      <h1 class="ml-10 my-4 mb-8 text-2xl text-black font-bold text-left">Upload a CSV file</h1>
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <!--<div class="mx-10">
-        <div>{{ form.as_p }}</div>
-      </div>-->
-        <div class="mx-10 mb-8">
-          <p>
-            <input type="file" name="csv_file" required="" id="id_csv_file" role="alert"
-              class="bg-gray rounded-lg text-black font-bold" style="width: 214px; height: 30px;">
-            <!-- accept=".csv" -->
-          </p>
-        </div>
-        <div class="mx-10 mt-8">
-          <button type="submit" id="upload-button"
-            class="custom-button bg-white px-5 py-2 rounded-lg text-black font-bold"
-            style="color: black;">Upload</button>
-        </div>
-        <div id="loading-animation" class="hidden">
-          <div class="loader"></div>
-            
-      </form>
-    </div>
-  </div>
-</div>
-
-<script>
-  window.addEventListener('load', function () {
-    var csvFileInput = document.getElementById('id_csv_file');
-    csvFileInput.focus();
-  });
-
-  const fileInput = document.getElementById('id_csv_file');
-  fileInput.addEventListener('change', function () {
-    const file = fileInput.files[0];
-    if (!file || file.type !== 'text/csv') {
-      alert('Please upload a CSV file.');
-      fileInput.value = '';
-    }
-  });
-
-  const uploadButton = document.getElementById('upload-button');
-  const loadingAnimation = document.getElementById('loading-animation');
-
-  uploadButton.addEventListener('click', () => {
-    uploadButton.classList.add('hidden');
-    loadingAnimation.classList.remove('hidden');
-    setTimeout(() => {
-      uploadButton.classList.remove('hidden');
-      loadingAnimation.classList.add('hidden');
-      // additional action after the animation ends
-    }, 3000);
-  });
-
-
-</script>
 
 {% endblock %}
 
