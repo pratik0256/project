@@ -7,20 +7,25 @@
         <span class="self-center text-3xl font-bold col-md-6 text-left"
             style="font-weight: 600; font-size: large;">Unexpected Import</span>
         <div class="text-right" style="font-size: large;">
-            <button id="back-button" class='back-button' type='submit'>
+         <button id="back-button" class='back-button' type='submit'>
                 BACK </button>
+                <a href="{% url 'download_excel' %}"  id="back-button" class="btn btn-primary" style="color: aliceblue; background-color: dodgerblue; border-color: dodgerblue; padding: 8px 16px; border-radius: 4px; text-decoration: none; "><b>Download</b></a>
+
+
         </div>
     </div>
 </nav>
+
 
 <div class="row" style="width: 100%;">
     <div class="container-fluid">
         <div class="row">
             <h1>Data</h1>
+            
         </div>
+
         <form style="padding-left: 6px; padding-right: 6px;">
-            <button class='download-button' style='float: right ; background-color: rgb(58, 167, 234);' type='submit'>
-                Download</button>
+            
         </form>
         <div id="myTable">
             <table class="table" data-spy="scroll" data-target="#myTable">

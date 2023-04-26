@@ -1,6 +1,6 @@
+from . import views
 from django.urls import path
 from .views import upload_file
-
 # from django.urls import path
 from .views import user_login, register
 from django.contrib.auth import views as auth_view
@@ -17,6 +17,6 @@ urlpatterns = [
     path('index2/',auth_view.LogoutView.as_view(template_name="index.html"),name='index2'),
     path('index/',auth_view.LogoutView.as_view(template_name="index.html"),name='base'),
     
-    
+    path('download_excel/', views.download_excel, name='download_excel'),
 ]
 
