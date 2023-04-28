@@ -105,6 +105,7 @@ def register(request):
         user_form = UserRegistrationForm()
     return render(request,'register.html',{'user_form': user_form})
 
+# download Button function
 def download_excel(request):
     data = CSVData.objects.all().values()
     df = pd.DataFrame(data)  # retrieve data from database or create DataFrame
