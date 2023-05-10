@@ -1,15 +1,11 @@
-from cProfile import Profile
+from lib2to3.pgen2.pgen import DFAState
 from django.shortcuts import render 
 import pandas as pd
 from .forms import CSVUploadForm, LoginForm, UserRegistrationForm
-from . models import CSVData,Profile
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
-from django.contrib.auth import login, logout, authenticate
+from .models import CSVData,Profile
+from django.contrib.auth import login , authenticate
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
-from .models import Profile
 from io import BytesIO
 
 # calculates unit_price
@@ -21,8 +17,7 @@ def upload_file(request):
             df = pd.read_csv(request.FILES['csv_file'])
             df['unit_price'] = df['CIF Value']/df['Stat Quantity']
             
-            grouped = df.groupby('M2_Declaration_Number')
-            
+            grouped = df.groupby('M2_Declaration_Number')        
             for M2_Declaration_Number , M2_Declaration_Number_df in grouped:
                   print(M2_Declaration_Number)
                   print(M2_Declaration_Number_df)
@@ -52,11 +47,8 @@ def upload_file(request):
                 commodity_desc = row['COMMODITY_DESC'].upper()
                 print(commodity_desc)
                 
-                for word in expected_words:
-                    print(f"Is '{word}' in '{commodity_desc}'? {word in commodity_desc}")
                 commodity_contains_expected = any(word in commodity_desc for word in expected_words)
-                print(commodity_contains_expected)
-                
+
                 if commodity_contains_expected == True:
                       
                     print("one or more expected word")
@@ -68,7 +60,26 @@ def upload_file(request):
 
             df['Test2'] = df.apply(lambda row: check_price2(row), axis=1)
             df = df.drop(['Unnamed: 0','Unnamed: 9','Unnamed: 10'], axis=1)
-            return render(request,'myapp/data.html',{'data':df.to_html()})        
+
+            
+            # Create a list of CSVData instances from the DataFrame rows
+            csv_data_list = [CSVData(
+                
+                M2_Declaration_Number=row['M2_Declaration_Number'],
+                Index = row['index'],
+                COMMODITY_DESC = row['COMMODITY_DESC'],
+                GOODS_DESCRIPTION = row['GOODS_DESCRIPTION'],
+                Stat_Quantity=row['Stat Quantity'],
+                CIF_Value=row['CIF Value'],
+                unit_price=row['unit_price'],
+                Test=row['Test'],
+                Test2=row['Test2']
+            ) for _, row in df.iterrows()]
+            
+            # Bulk insert the CSVData instances to the database
+            CSVData.objects.bulk_create(csv_data_list)
+        return render(request,'myapp/data.html',{'data':df.to_html()}) 
+           
     else:
         form = CSVUploadForm()
     return render(request,'myapp/upload_csv.html',{'form':form})
@@ -99,7 +110,8 @@ def register(request):
            new_user.set_password(user_form.cleaned_data['password'])
            new_user.save()
            Profile.objects.create(user=new_user)
-           return render(request,'myapp/login.html')
+           
+           return render(request,'upload.html')
        
     else:
         user_form = UserRegistrationForm()
@@ -117,4 +129,7 @@ def download_excel(request):
     response = HttpResponse(output.getvalue(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = f'attachment; filename={filename}'
     return response
+
+
+
 
