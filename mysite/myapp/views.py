@@ -62,7 +62,7 @@ def upload_file(request):
             df = df.drop(['Unnamed: 0','Unnamed: 9','Unnamed: 10'], axis=1)
 
             
-            # Create a list of CSVData instances from the DataFrame rows
+            # upload to data base
             csv_data_list = [CSVData(
                 
                 M2_Declaration_Number=row['M2_Declaration_Number'],
