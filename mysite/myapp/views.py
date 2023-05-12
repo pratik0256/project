@@ -1,4 +1,4 @@
-from lib2to3.pgen2.pgen import DFAState
+
 from django.shortcuts import render 
 import pandas as pd
 from .forms import CSVUploadForm, LoginForm, UserRegistrationForm
@@ -9,81 +9,72 @@ from django.contrib.auth import authenticate
 from io import BytesIO
 
 # calculates unit_price
+# calculates unit_price
 def upload_file(request):
     if request.method == 'POST':
-        form = CSVUploadForm(request.POST,request.FILES)
+        form = CSVUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            #read the contents of the file using pandas
+            # Read the contents of the file using pandas
             df = pd.read_csv(request.FILES['csv_file'])
-            df['unit_price'] = df['CIF Value']/df['Stat Quantity']
-            
-            grouped = df.groupby('M2_Declaration_Number')        
-            for M2_Declaration_Number , M2_Declaration_Number_df in grouped:
-                  print(M2_Declaration_Number)
-                  print(M2_Declaration_Number_df)
- 
+            df['unit_price'] = df['CIF Value'] / df['Stat Quantity']
+
+            grouped = df.groupby('M2_Declaration_Number')
+
             group_averages = grouped['unit_price'].mean()
-            print(group_averages)
+
             def check_price(row):
                 group_avg = group_averages[row['M2_Declaration_Number']]
-                group_avg_p = (group_avg*10)/100
+                group_avg_p = (group_avg * 10) / 100
                 group_avg_pl = group_avg - group_avg_p
                 group_avg_o = group_avg + group_avg_p
                 if row['unit_price'] < group_avg_pl:
                     return "Undervalue"
                 elif row['unit_price'] > group_avg_o:
                     return "Overvalue"
-                else :
+                else:
                     return "Expected"
-            
+
             df['Test'] = df.apply(check_price, axis=1)
-            
-        
-        # Function comapre string
+
             def check_price2(row):
-            
                 expected_words = row['GOODS_DESCRIPTION'].split()
-                print(expected_words)  
                 commodity_desc = row['COMMODITY_DESC'].upper()
-                print(commodity_desc)
-                
+
                 commodity_contains_expected = any(word in commodity_desc for word in expected_words)
 
-                if commodity_contains_expected == True:
-                      
-                    print("one or more expected word")
+                if commodity_contains_expected:
                     return "True"
-                    
                 else:
-                    print(f"Item is an expected import/export.")
                     return "False"
 
-            df['Test2'] = df.apply(lambda row: check_price2(row), axis=1)
-            df = df.drop(['Unnamed: 0','Unnamed: 9','Unnamed: 10'], axis=1)
+            df['Test2'] = df.apply(check_price2, axis=1)
+            df['Result'] = df.apply(lambda row: 'Unexpected' if row['Test'] == 'Undervalue' and row['Test2'] == 'False' else 'Expected', axis=1)
+            df = df.drop(['Unnamed: 0', 'Unnamed: 9', 'Unnamed: 10'], axis=1)
 
-            
-            # upload to data base
-            csv_data_list = [CSVData(
-                
-                M2_Declaration_Number=row['M2_Declaration_Number'],
-                Index = row['index'],
-                COMMODITY_DESC = row['COMMODITY_DESC'],
-                GOODS_DESCRIPTION = row['GOODS_DESCRIPTION'],
-                Stat_Quantity=row['Stat Quantity'],
-                CIF_Value=row['CIF Value'],
-                unit_price=row['unit_price'],
-                Test=row['Test'],
-                Test2=row['Test2']
-            ) for _, row in df.iterrows()]
-            
+            # Upload to the database
+            csv_data_list = [
+                CSVData(
+                    M2_Declaration_Number=row['M2_Declaration_Number'],
+                    Index=row['index'],
+                    COMMODITY_DESC=row['COMMODITY_DESC'],
+                    GOODS_DESCRIPTION=row['GOODS_DESCRIPTION'],
+                    Stat_Quantity=row['Stat Quantity'],
+                    CIF_Value=row['CIF Value'],
+                    unit_price=row['unit_price'],
+                    Test=row['Test'],
+                    Test2=row['Test2'],
+                    Result=row['Result'],
+                ) for _, row in df.iterrows()
+            ]
+
             # Bulk insert the CSVData instances to the database
             CSVData.objects.bulk_create(csv_data_list)
-        return render(request,'myapp/data.html',{'data':df.to_html()}) 
-           
+
+        return render(request, 'myapp/data.html', {'data': df.to_html()})
     else:
         form = CSVUploadForm()
-    return render(request,'myapp/upload_csv.html',{'form':form})
 
+    return render(request, 'myapp/upload_csv.html', {'form': form})
 #  login function
 def user_login(request):
     if request.method == "POST":

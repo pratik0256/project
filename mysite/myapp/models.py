@@ -11,10 +11,9 @@ class CSVData(models.Model):
     unit_price = models.FloatField()
     Test = models.TextField(max_length=2550)
     Test2 = models.TextField(max_length=2550)
+    Result = models.TextField(max_length=100,default='SOME STRING')
 
-    class Meta:
-        unique_together = ["Index", "M2_Declaration_Number", "CIF_Value","Stat_Quantity","COMMODITY_DESC","GOODS_DESCRIPTION","unit_price"]
-    
+  
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     
